@@ -97,6 +97,13 @@
     transition:transform .25s,box-shadow .25s,filter .25s;box-shadow:0 12px 34px rgba(231,216,181,.16)}
   button:hover{transform:translateY(-2px);filter:brightness(1.04);box-shadow:0 16px 40px rgba(231,216,181,.24)}
   button:active{transform:translateY(0)}
+  .cta{display:inline-flex;align-items:center;justify-content:center;height:56px;padding:0 34px;
+    border-radius:100px;cursor:pointer;text-decoration:none;
+    background:var(--accent);color:#1a160d;font-family:"Barlow",sans-serif;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;font-size:12px;white-space:nowrap;
+    transition:transform .25s,box-shadow .25s,filter .25s;box-shadow:0 12px 34px rgba(231,216,181,.16)}
+  .cta:hover{transform:translateY(-2px);filter:brightness(1.04);box-shadow:0 16px 40px rgba(231,216,181,.24)}
+  .cta:active{transform:translateY(0)}
   .note{margin-top:15px;font-size:12px;color:#6c685f;letter-spacing:.02em}
   .success{display:none;align-items:center;gap:12px;border:1px solid rgba(231,216,181,.35);
     background:rgba(231,216,181,.06);border-radius:16px;padding:20px 22px;margin-top:18px;max-width:520px}
@@ -177,6 +184,7 @@
     .wrap{padding:20px 20px 20px}
     .logo{height:22px}
     button{width:100%}
+    .cta{width:100%}
     .field{min-width:100%}
     .eyebrow{margin-bottom:14px}
     h1{font-size:clamp(27px,7vw,40px);line-height:1.08}
@@ -211,17 +219,8 @@
 
         <div class="form-block">
           <div class="label">Seja avisado no lançamento</div>
-          <form id="form" action="https://formspree.io/f/SEU_ID_AQUI" method="POST" novalidate>
-            <div class="field">
-              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="seu melhor e-mail" required />
-            </div>
-            <button type="submit">Quero saber primeiro</button>
-          </form>
-          <div class="note">Sem spam. Apenas o convite para conhecer a Realler Design.</div>
-          <div class="success" id="success">
-            <div class="dot"></div>
-            <p>Recebido.<span>Você está na lista. Entraremos em contato em primeira mão.</span></p>
-          </div>
+          <a class="cta" href="mailto:contato@reallerdesign.com.br?subject=Tenho%20interesse%20na%20Realler%20Design&body=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Realler%20Design.">Quero saber primeiro</a>
+          <div class="note">Clique para nos enviar um e-mail. Responderemos em primeira mão.</div>
         </div>
       </div>
 
@@ -245,21 +244,5 @@
       <div class="by">Um braço de tecnologia da <b>Realler</b></div>
     </footer>
   </div>
-
-<script>
-  const form=document.getElementById('form'),email=document.getElementById('email'),
-        success=document.getElementById('success'),btn=form.querySelector('button');
-  function showSuccess(){form.style.display='none';document.querySelector('.label').style.display='none';
-    document.querySelector('.note').style.display='none';success.classList.add('show');}
-  form.addEventListener('submit',async function(e){
-    e.preventDefault();
-    const v=email.value.trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){email.focus();email.closest('.field').style.borderColor='rgba(201,108,80,.7)';return;}
-    btn.textContent='Enviando…';btn.disabled=true;
-    try{await fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)});showSuccess();}
-    catch(err){showSuccess();}
-  });
-  email.addEventListener('input',function(){email.closest('.field').style.borderColor='';});
-</script>
 </body>
 </html>
